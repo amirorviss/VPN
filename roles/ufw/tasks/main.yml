@@ -11,7 +11,7 @@
 
 - name: Check if the 'UFW configured' marker file exists
   ansible.builtin.stat:
-    path: "{{ docker_dir }}/.ufw_configured"
+    path: "/etc/ufw/.ufw_configured"
   register: ufw_configured
 
 - name: Configure UFW
