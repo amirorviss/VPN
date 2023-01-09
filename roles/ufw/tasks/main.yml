@@ -9,11 +9,23 @@
     # yamllint disable-line
     logging: on
 
+- name: Check if the 'UFW configured' marker file exists
+  ansible.builtin.stat:
+    path: "{{ docker_dir }}/.ufw_configured"
+  register: ufw_configured
+
 - name: Configure UFW
   block:
     - name: Reset all rules
+      when: not ufw_configured.stat.exists
       community.general.ufw:
         state: reset
+
+    - name: Create the marker file
+      when: not ufw_configured.stat.exists
+      ansible.builtin.file:
+        dest: "{{ docker_dir }}/.ufw_configured"
+        state: touch
 
     - name: Allow the defined ports
       community.general.ufw:
