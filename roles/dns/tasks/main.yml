@@ -17,6 +17,8 @@
 - name: Copy the docker folder to {{ docker_dir }}
   ansible.posix.synchronize:
     src: "{{ role_path }}/files/adguard-unbound/"
+    owner: "{{ username }}"
+    group: "{{ username }}"
     dest: "{{ docker_dir }}/adguard-unbound-doh/build/"
     recursive: yes
     rsync_opts:
