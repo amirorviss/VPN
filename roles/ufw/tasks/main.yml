@@ -24,7 +24,7 @@
     - name: Create the marker file
       when: not ufw_configured.stat.exists
       ansible.builtin.file:
-        dest: "{{ docker_dir }}/.ufw_configured"
+        dest: "/etc/ufw/.ufw_configured"
         state: touch
 
     - name: Allow the defined ports
